@@ -344,11 +344,11 @@ if ( NOT "${bro_LINKER_FLAGS}" STREQUAL "" )
     set_target_properties(zeek PROPERTIES LINK_FLAGS "${bro_LINKER_FLAGS}")
 endif ()
 
-install(TARGETS zeek DESTINATION bin)
+install(TARGETS zeek DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 # Install wrapper script for Bro-to-Zeek renaming.
 include(InstallSymlink)
-InstallSymlink("${CMAKE_INSTALL_PREFIX}/bin/zeek-wrapper" "${CMAKE_INSTALL_PREFIX}/bin/bro")
+InstallSymlink("${CMAKE_INSTALL_BINDIR}/zeek-wrapper" "${CMAKE_INSTALL_BINDIR}/bro")
 
 set(BRO_EXE zeek
     CACHE STRING "Zeek executable binary" FORCE)
@@ -407,7 +407,7 @@ install(CODE "
 ")
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
-        DESTINATION include/zeek
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/zeek
         FILES_MATCHING
         PATTERN "*.h"
         PATTERN "*.pac"
@@ -415,7 +415,7 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
 )
 
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/
-        DESTINATION include/zeek
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/zeek
         FILES_MATCHING
         PATTERN "*.bif.func_h"
         PATTERN "*.bif.netvar_h"
@@ -425,11 +425,11 @@ install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/
 
 install(FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/sqlite3.h
-        DESTINATION include/zeek/3rdparty
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/zeek/3rdparty
 )
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/rapidjson/include/rapidjson
-        DESTINATION include/zeek/3rdparty/rapidjson/include)
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/zeek/3rdparty/rapidjson/include)
 
 ########################################################################
 ## Clang-tidy target now that we have all of the sources
